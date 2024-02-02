@@ -1,0 +1,18 @@
+type: markdown
+style: >-
+  ha-markdown {display:block !important;overflow:scroll;height:150px
+  !important;}
+content: |-
+  ```
+  - id: '<<uniqueID>>'
+    name: <<scene name>>
+    entities:
+  {% for thisLight in states.light %}
+  {%- if not (state_attr(thisLight.entity_id, 'entity_id')) -%}
+  {{"    "}}{{thisLight.entity_id}}:
+        state: '{{thisLight.state}}'{% for attr in thisLight.attributes %}
+        {{attr}}: {{thisLight.attributes[attr] | to_json()}}
+  {%- endfor %}
+  {% endif %}{%- endfor -%}
+  ```
+title: All lights YAML
